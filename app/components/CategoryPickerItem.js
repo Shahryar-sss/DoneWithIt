@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import Icon from "./Icon";
 import AppText from "./AppText";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity } from 'react-native';
 
 function CategoryPickerItem({ item, onPress }) {
     return (
