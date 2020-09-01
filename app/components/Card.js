@@ -9,7 +9,7 @@ function Card({ imageUrl, title, subTitle, onPress }) {
     return (
         <TouchableWithoutFeedback onPress={onPress}>
             <View style={styles.card}>
-                <Image source={{uri: imageUrl}} style={styles.image} />
+                <Image progressiveRenderingEnabled source={{uri: imageUrl}} style={styles.image} />
                 <View style={styles.detailsContainer}>
                     <AppText style={styles.title} numberOfLines={1}>
                         {title}
