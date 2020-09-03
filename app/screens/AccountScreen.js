@@ -8,6 +8,7 @@ import Icon from "../components/Icon";
 import colors from "../config/colors.json";
 import ListItemSeperator from "../components/ListItemSeperator";
 import routes from "../navigation/routes";
+import useAuth from "../auth/useAuth";
 
 const menuItems = [
     {
@@ -23,18 +24,20 @@ const menuItems = [
             name: "email",
             backgroundColor: colors.secondary,
         },
-        targetScreen: routes.MESSAGES_SCREEN
+        targetScreen: routes.MESSAGES_SCREEN,
     },
 ];
 
-function AccountScreen({navigation}) {
+function AccountScreen({ navigation }) {
+    const { user, logOut } = useAuth();
+
     return (
         <Screen style={styles.screen}>
             <View style={styles.container}>
                 <ListItem
                     style={styles.listItem}
-                    title="Shahryar Saify"
-                    subTitle="saify.shahryar@gmail.com"
+                    title={user.name}
+                    subTitle={user.email}
                     image={require("../assets/mosh.jpg")}
                 />
             </View>
@@ -53,7 +56,9 @@ function AccountScreen({navigation}) {
                                     backgroundColor={item.icon.backgroundColor}
                                 />
                             }
-                            onPress={() => navigation.navigate(item.targetScreen)}
+                            onPress={() =>
+                                navigation.navigate(item.targetScreen)
+                            }
                         />
                     )}
                 />
@@ -61,6 +66,7 @@ function AccountScreen({navigation}) {
             <ListItem
                 style={styles.listItem}
                 title="Logout"
+                onPress={() => logOut()}
                 IconComponent={<Icon name="logout" backgroundColor="#ffe66d" />}
             />
         </Screen>

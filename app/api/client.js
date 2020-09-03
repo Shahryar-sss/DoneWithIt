@@ -1,9 +1,20 @@
 import { create } from "apisauce";
 import cache from "../utility/cache";
+import storage from "../auth/storage";
 
 const apiClient = create({
-    baseURL: "http://192.168.0.102:9000/api",
+    baseURL: "http://192.168.0.101:9000/api",
     timeout: 20000,
+});
+
+apiClient.addAsyncRequestTransform(async (request) => {
+    try {
+        const authToken = await storage.getToken();
+        if (!authToken) return;
+        request.headers["x-auth-token"] = authToken;
+    } catch (e) {
+        console.log("Error adding token to request header", e);
+    }
 });
 
 const get = apiClient.get;
